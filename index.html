@@ -1,0 +1,490 @@
+l<!DOCTYPE html>
+<html>
+
+<!--
+#     sm.html
+#     Copyright (C) 2006 - 2010 Joachim Breitner
+#
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 2 of the License, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, write to the Free Software
+#     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+-->
+<head>
+<title>Screen message</title>
+<link id="favicon" rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAB0ElEQVQ4jaWTP2gUURDGf/P2sgmYLmAMaPZOUwQjKCHcpohCLBTEwkqLwyKkuVyhWCgqKWwszsIiqBcsBQVtbM5KCEQUvMtBbK6QCNlNoURFRLkYcn/G4tZk2c1BwKnem5nvm+/jzYP/DIkmhlbmuus/us6JyClUnXaX+Kr6pre371V15OJWR4LU+8JlFfLAQIdxnxVu+OmZpzECpzR/T9DrexSe99zszW2CYPKTvYHboWjGd3PPBL1jnHK/L3Bwp0hR0Lcgl4LMc0UmBM6HONa89HrKpCr9Y2FwIGvBc3N5VamqStVzc3mBhYiIwcPlA6Om1eTQLgqPp949cETUiKiTLD88oUjsxZqqjhGj3+P+yDStxD6EYeCkqhxFdTjWZ+SnMcb6AFqLWLhrCWMoowpFS3RFhEwE/8dubS0JQLJUuA9cCxV9YLDNxRegD7AjMue88ZmrBoCNntsKlVDZYWdHBmJgWO5u2LMABsCbnNrsqdungcWoz5hvKNqWOfNxYvo3RFY5WZp/CXohuK4D+4OebwqLRuXx6nj2dRizTXBkqXCs0WJZYENFbvnp7KOR6gu79rVmvMmpzU6KEv8ODegCzia0XvnkXvkFEP15u8Vf3UadUEC2j2IAAAAASUVORK5CYII=">
+<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+<style type="text/css">
+@import url('https://fonts.cdnfonts.com/css/futura-lt');
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+*{
+	overflow: hidden;
+	line-height: 1.05;
+	margin: 0px;
+	padding:  0px;
+	
+	font-weight: 700;
+	font-family: sans-serif;
+}
+
+body{ 
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+}
+
+
+#textarea{
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw; 
+	height: 100vh;
+	padding:0px;
+	margin:0px;
+	border:0px;
+	text-align:center; 
+	resize:none;
+}
+.shadows {
+	color: #fff;
+	font-weight: bold;
+	font-family: Helvetica;
+	caret-color: black;
+	text-shadow: 
+		0 1px 0 #ccc, 
+		0 2px 0 #c9c9c9, 
+		0 3px 0 #bbb, 
+		0 4px 0 #b9b9b9, 
+		0 5px 0 #aaa, 
+		0 6px 1px rgba(0,0,0,.1), 
+		0 0 5px rgba(0,0,0,.1), 
+		0 1px 3px rgba(0,0,0,.3), 
+		0 3px 5px rgba(0,0,0,.2), 
+		0 5px 10px rgba(0,0,0,.25), 
+		0 10px 10px rgba(0,0,0,.2), 
+		0 20px 20px rgba(0,0,0,.15);
+	background-color: #f1f1f1;
+}
+
+.mirror{
+	-moz-transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+	font-family: helvetica, sans-serif;
+	font-weight: 700;
+	color: #000;
+	background-color: #FFF;
+	caret-color: black;
+}
+.mirror_red{
+	-moz-transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+	font-family: 'Futura LT', sans-serif;
+	font-weight: 900;
+	font-style: italic;
+	color: #f9f9f9;
+	background-color:#ee0606;
+}
+.shiny {
+	font-weight: 700;
+	font-family: sans-serif;
+	background: #dCe0e3;
+	color: black;
+  text-shadow: -.01em -.01em 0px #ffffff,
+    .02em .02em 0px gray;
+  caret-color: #152C5277;
+}
+.neumorphic{
+	font-weight: 700;
+	font-family: sans-serif;
+	background: #ECF0F3;
+	color: #ECF0F3;
+	text-shadow: 0 0 0 #ECF0F3,.03em .03em .04em #152C521a,
+  -.03em -.03em .04em #fafafa;
+  caret-color: #8888;
+}
+.retro{
+	font-weight: 500;
+	font-family: 'Shrikhand', cursive;
+	background: #ECF0F3;
+	color: #ed7692;
+	caret-color: #8888;
+	text-shadow: .01em .016em 0 #333,
+    .02em .033em 0 #666666,
+    .03em .05em 0 #999;
+}
+.miami{
+	font-family: sans-serif;
+	font-weight: 900;
+	font-style: oblique;
+	-webkit-text-stroke: .02em #d6f4f4;
+  color: transparent;
+  text-shadow: .04em .04em 0px #07bccc,
+    .06em .06em 0px #e601c0,
+    .08em .08em 0px #e9019a,
+    .1em .1em 0px #f40468,
+    .18em .18em .04em #482896;
+  background-color: #8357eb;
+  caret-color: white;
+}
+.nerd{
+	font-family: monospace, monospace;
+	font-weight: 500;
+	color: #000;
+	background-color: #FFF;
+	caret-color: black;
+	text-align: right;
+	-webkit-text-stroke: .05em #000;
+}
+.simple{
+	font-family: helvetica, sans-serif;
+	font-weight: 500;
+	color: #000;
+	background-color: #FFF;
+	caret-color: black;
+}
+.white{
+	font-family: helvetica, sans-serif;
+	font-weight: 900;
+	-webkit-text-stroke: .02em #000;
+  color: #FFF;
+  text-shadow: .05em .05em 0px #000, .0525em .0525em 0px #000, .055em .055em 0px #000, .0575em .0575em 0px #000,  .06em .06em 0px #000;
+  background-color: #FFF;
+  caret-color: black;
+}
+.black{
+	font-family: helvetica, sans-serif;
+	font-weight: 900;
+	-webkit-text-stroke: .015em #000;
+  color: #FFF;
+  text-shadow: .025em .025em 0px #fff;
+  background-color: #000;
+  caret-color: white;
+}
+.rich{
+	font-family: 'Futura LT', sans-serif;
+	font-weight: 900;
+	font-style: italic;
+	color: #f9f9f9;
+	background-color:#ee0606;
+
+}
+.color{
+	font-weight: 700;
+	font-family: sans-serif;
+	background: linear-gradient(to right,     rgb(76, 217, 105), rgb(52, 170, 220),     rgb(88, 86, 217), rgb(255, 45, 83),       rgb(255, 45, 83), rgb(88, 86, 217),       rgb(52, 170, 220), rgb(76, 217, 105));
+	background-size: 400%;
+	-webkit-background-clip: text;
+	color: transparent;
+	caret-color: black; 
+	animation:sTransition 15s linear infinite;
+}
+.grainy{
+	text-transform: uppercase;
+	color: #0000;
+	font-family: sans-serif;
+	font-size: 100px;
+	font-weight: bold;
+	background: 
+		repeating-radial-gradient(#000 0 0.0001%,#555 0 0.0003%) 50% 0/2500px 2500px,
+		repeating-conic-gradient(#000 0 0.0001%,#555 0 0.0003%) 50% 50%/2500px 2500px;
+	background-blend-mode: overlay;
+	mix-blend-mode: lighten;
+	-webkit-background-clip: text;
+	background-clip: text;
+	caret-color: black;
+	-webkit-text-stroke: 2px #111;
+	
+}
+
+.dark{
+	font-family: 'Playfair Display', serif;
+	font-weight: 900;
+	color: #eee;
+	background-color: black;	
+	caret-color: #fff;
+}
+.dark::selection{
+  background: #136;
+}
+.paper{
+	font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-style: italic;
+	background-color: #f6f6f6
+}
+.headline{
+	font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    //text-transform: uppercase;
+	background-color: #f6f6f6
+}
+
+
+.toggle-container{
+	position: absolute;
+	top: 5vh;
+	left: -10px;
+	padding: 12px;
+	padding-left: 15px;
+	width: 33px;
+	opacity: 10%;
+	background: linear-gradient(90deg, #bbbf 20%, #bbb3 100%);
+	mix-blend-mode:luminosity;
+	border-radius: 12px;
+	box-sizing: content-box;
+	transition: 70ms linear;
+}
+.toggle-container:hover{
+	background: linear-gradient(90deg, #bbbf 20%, #bbb9 100%);
+	transition: 70ms linear;
+	mix-blend-mode:normal;
+	opacity: 100%;
+}
+
+@keyframes sTransition{
+  0%{
+    background-position:0%;
+  }
+  
+  100%{
+    background-position:400%;
+  }
+}
+
+
+/* disable focus border at Chrome */
+:focus {
+	outline: none;
+}
+
+
+.button{
+	box-sizing: content-box;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 10px;
+	border-radius: 2px;
+  width: 32px;
+  height: 16px;
+  margin: 0px;
+  text-align:center; 
+  line-height: 16px;
+  opacity:  100%;
+  color: inherit;
+  background: linear-gradient(90deg, #dddf 50%, #ddd4 100%);
+  transition: 40ms linear;
+}
+.button:hover{
+	transition: 30ms linear;
+	border: 2px solid orange;
+	opacity: 100%;
+	border-radius: 4px;
+}
+
+.fsbutton{
+	margin-bottom: 15px;
+}
+
+.plug{
+	position: absolute;
+	bottom: 20px;
+	left: 8px;
+	opacity: 1%;
+	background-color: #fff;
+	transition: 100ms linear;
+	width: 15px;
+	height: 15px;
+	padding: 10px;
+	border-radius: 8px;
+
+}
+.plug:hover{
+	opacity: 100%;
+	width: 370px;
+	height: 280px;
+	transition: 3200ms ease-in;
+	cursor: pointer;
+}
+
+#test {
+	position:absolute;
+	visibility:hidden;
+	font-size:50px;
+	white-space:pre;
+	border:0px;
+	padding:0.15em;
+	margin:0px; 
+	text-shadow: none !important;
+	animation:  none !important;
+}
+
+
+
+
+
+</style>
+<script type="text/javascript"> 
+
+
+
+var timeoutHandle = window.setTimeout(encodeta, 2600);
+// initializes the timeout that will be used to delay encoding to URL
+var ratioX = 1;
+var ratioY = 1;
+
+async function changeStyle(option){
+	document.getElementById("textarea").className = option;
+	document.getElementById("textarea").focus();
+	document.getElementById("test").className = option;
+	setTimeout(adjust, 1);
+	setTimeout(adjust, 100);
+	setTimeout(adjust, 300);
+	setTimeout(adjust, 1000);
+	// calls adjust() multiple times after a style change so that slow computers that dont load the font quickly still work
+	encodeta();
+}
+
+function fullscreen(){
+  var element = document.documentElement;
+
+	var isFullscreen = document.webkitIsFullScreen || document.mozFullScreen || false;
+
+	element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || function () { return false; };
+	document.cancelFullScreen = document.cancelFullScreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || function () { return false; };
+
+	isFullscreen ? document.cancelFullScreen() : element.requestFullScreen();
+	setTimeout(adjust, 30);
+	setTimeout(adjust, 150);
+}
+
+function adjust() {
+	ta = document.getElementById("textarea");
+	test = document.getElementById("test");
+	
+	test.textContent=ta.value;
+	// Otherwise, the newline would not be counted.
+	prevChar = ta.value[ta.value.length-1];
+	if (prevChar == "\n") {
+		test.innerHTML += '.';
+	}
+	else if(prevChar == null){
+		test.innerHTML += ".";
+	}
+
+	if((ratioX != (window.innerWidth) / test.offsetWidth) || (ratioY != (window.innerHeight) / test.offsetHeight)){
+		ratioX = (window.innerWidth) / test.offsetWidth;
+		ratioY = (window.innerHeight) / test.offsetHeight;
+		ratio = Math.min(ratioX,ratioY);
+		fontSize = Math.floor(50 * ratio*1000)/1000 + "px"
+
+		ta.style.fontSize = fontSize;
+		newHeight = Math.ceil(test.offsetHeight * ratio*1000)/1000;
+		
+		ta.style.paddingTop = Math.floor(1000*(window.innerHeight - newHeight)/2)/1000 + "px";
+		//newWidth = Math.ceil(test.offsetWidth * ratio*1000)/1000;
+
+		//ta.style.width = newWidth + "px";
+		//ta.style.paddingRight = Math.max(0,10*(window.innerWidth - newWidth)/2)/10 + "px";
+		//ta.style.paddingLeft = Math.max(0,1000*(window.innerWidth - newWidth)/2)/1000 + "px";
+		 
+
+	}
+	
+	window.clearTimeout(timeoutHandle);
+	timeoutHandle = window.setTimeout(encodeta, 2500);
+	// waits 2 seconds after an input to encode URL so history isnt filled as fast
+}
+
+function encodeta(){
+	target = document.getElementById("textarea");
+	href =  "#t=" + encodeURIComponent(target.value);
+	if (target.className != "") {
+		href +=  ";#s=" + encodeURIComponent(target.className);
+	}
+	history.replaceState({}, 'amogus', href);
+	//window.location.replace(href); 
+	// I need to find a way to make it so that the encoding of the textarea doesn't fill up the history
+}
+
+function parseHash() {
+	ta = document.getElementById("textarea");
+	ta.focus();
+
+	var queryString = {};
+	window.location.href.replace(
+		new RegExp("([^?=&;#]+)(=([^&;]*))", "g"),
+		function($0, $1, $2, $3) {queryString[$1] = decodeURIComponent($3); }
+	);
+	if (queryString['t']) {
+		ta.value = queryString['t'];
+	}
+	if (URLclass = queryString['s']) {
+		if (ta.className != URLclass){changeStyle(URLclass);}
+	}
+	
+	adjust();
+	//console.log("hash loaded")
+}
+	
+function init() { 
+	parseHash();
+	document.getElementById("textarea").focus();
+}
+
+
+
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+</head>
+<body onload="init()" onhashchange="parseHash()" onresize="adjust()"> 
+
+<span class="miami" id="test"></span>  
+<textarea class="miami" id="textarea" spellcheck="false" onkeypress="adjust()" onpaste="adjust()" oninput="adjust()" onchange="adjust()" data-enable-grammarly="false">slidey.pages.dev</textarea>
+<div class="toggle-container">
+	<div class="button fsbutton" onclick="fullscreen()" title="Go fullscreen">F11</div>
+	<div class="button" onclick='changeStyle("shadows")'title="3d shadowy text">3d</div>
+	<div class="button" onclick='changeStyle("miami")'title="BROKEN AF ON CHROME/EDGE">Miami</div>
+	<div class="button" onclick='changeStyle("white")'title="streetwear-esque black and white">Comic</div>
+	<div class="button" onclick='changeStyle("color")'title="this one is LAGGY but cool looking">Color</div>
+	<div class="button" onclick='changeStyle("neumorphic")'title="change text style to neumorphic">Bump</div>
+	<div class="button" onclick='changeStyle("rich")'title="change text style to Hypebeast">Hype</div>
+	<div class="button" onclick='changeStyle("dark")'title="Dark mode">Dark</div>
+	<div class="button" onclick='changeStyle("nerd")'title="Thick Monospaced">Mono</div>
+	<div class="button" onclick='changeStyle("simple")'title="simple text preset">Arial</div>
+</div>
+<div class="plug"title="a lil' secret ;)">
+	Congratulations! you found the credits!
+	This program was made in 2006 by Joachim Breitner and was updated and overhauled into the modern era by Wade D (ohio@GMX.us) in 2022.
+	Screen Message is meant to be a tool you can use to message someone across a room without having to make noise, and a tool for making 
+	slides on-the-fly. I hid some extra styles in the code of the website. you can modify the url to use them
+	(mirror mirror_red retro grainy black paper headline) I made it because I needed it, 
+	and tbh it took way too long to make, I suck at coding. if you make something cool
+	with this tool or use it in some cool way, please email me. anyways, enjoy the tool. 
+	
+	-Wade
+</div>
+</body>
+</html>
+<!-- Yes I know its absolutely busted on microsoft edge as of March 2023. No I do not know why. No i will not fix it (if you find out why email me at Ohio@GMX.US) -->
+<!-- these are the secret styles that can be written into the URL:  mirror  mirror_red  retro  grainy  black  shiny  paper  headline -->
+<!-- this website is hosted on pages.dev. thank you to CloudFlare for giving us this tool. it's hosted on bigletters.pages.dev and slidey.pages.dev -->
